@@ -27,7 +27,7 @@ def main(args):
     model = init_detector(args.config, args.checkpoint, device=args.device)
     # test a single image
     result = inference_detector(model, args.img)
-    # show the results
+    model.CLASSES = ("human", )
     show_result_pyplot(model, args.img, result, score_thr=args.score_thr)
 
 
@@ -37,7 +37,7 @@ async def async_main(args):
     # test a single image
     tasks = asyncio.create_task(async_inference_detector(model, args.img))
     result = await asyncio.gather(tasks)
-    # show the results
+    model.CLASSES = ("human", )
     show_result_pyplot(model, args.img, result[0], score_thr=args.score_thr)
 
 
